@@ -1,0 +1,49 @@
+.footer-section {
+  @media (max-width: 768px) {
+    margin: 0;
+    padding: 0 15px;
+
+    .footer-item {
+      flex-direction: column;
+      padding: 25px 0;
+
+      h1 {
+        line-height: 38px;
+        font-size: 38px;
+        padding-bottom: 20px;
+      }
+
+      a {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 12px;
+        padding-top: 10px;
+      }
+    }
+
+    .social-links {
+      padding: 50px 0;
+
+      a {
+        font-size: 20px;
+      }
+    }
+
+    .footer-logo {
+      font-size: 32px;
+    }
+    .footer-copywrite {
+      font-size: 10px;
+      padding-bottom: 25px;
+    }
+  }
+}
+
+.footer-section {
+  @media (max-width: 1200px) {
+    margin: 0;
+    padding: 0 15px;
+  }
+}

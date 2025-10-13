@@ -1,0 +1,8 @@
+.marquee {
+  @media (max-width: 768px) {
+    line-height: 35px;
+    p {
+      font-size: 28px;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+.works_caption {
+  @media (max-width: 768px) {
+    margin-top: 50px;
+    padding: 80px 15px 40px 15px;
+  }
+}
+
+.mb-work-trail-image {
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 100px;
+  }
+}
+
+.work-content-wrap {
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.work-heading {
+  @media (max-width: 768px) {
+    font-size: 46px;
+  }
+}
+
+.m-hide {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.mb-content {
+  @media (max-width: 768px) {
+    padding: 30px 0;
+  }
+}
+
+.works_caption {
+  @media (max-width: 1200px) {
+    margin-top: 50px;
+    padding: 150px 15px;
+  }
+}
+.work-heading {
+  @media (max-width: 1200px) {
+    font-size: 65px;
+  }
+}

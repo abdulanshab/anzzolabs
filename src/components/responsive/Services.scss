@@ -1,0 +1,33 @@
+.services-container {
+  @media (max-width: 768px) {
+    padding: 15px;
+    margin: 100px 0;
+
+    .services-item {
+      gap: 30px;
+      padding: 15px 0;
+      height: 70px;
+
+      .service-id {
+        font-size: 10px;
+      }
+
+      .services-text {
+        font-size: 18px;
+      }
+
+      .services-image {
+        width: 150px;
+        height: 100px;
+        right: 20px;
+      }
+    }
+  }
+}
+
+.services-container {
+  @media (max-width: 1200px) {
+    padding: 15px;
+    margin: 100px 0;
+  }
+}
