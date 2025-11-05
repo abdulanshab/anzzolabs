@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import emailjs from "@emailjs/browser";
+import "./responsive/Contact.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -146,7 +147,7 @@ const Contact = () => {
           <br />
           <br />
 
-          <label className="text-[18px] font-medium form-field">
+          <label className="text-[18px] font-medium uppercase form-field">
             <span className="text-[#3545D6]">*</span> Project Budget
           </label>
           <br />
@@ -172,7 +173,7 @@ const Contact = () => {
       </div>
 
       {/* Second Section */}
-      <div className="flex my-[200px] gap-[25px] contact-section">
+      <div className="flex my-[200px] gap-[25px] contact-section ">
         <div className="w-full">
           <p className="text-[50px] font-medium uppercase leading-15">
             call or email <br /> us directly
@@ -183,10 +184,10 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-[100px] w-full">
+        <div className="flex flex-col gap-[100px] w-full reach-out">
           <div>
             <p className="text-[20px] font-medium uppercase">Email support</p>
-            <p className="text-[40px] font-medium t-[35px] uppercase pt-[35px]">
+            <p className="text-[40px] font-medium t-[35px] uppercase pt-[35px] mail">
               anzzolabs@gmail.com
             </p>
             <a
@@ -209,7 +210,7 @@ const Contact = () => {
 
           <div>
             <p className="text-[20px] font-medium uppercase">phone support</p>
-            <p className="text-[40px] font-medium t-[35px] uppercase pt-[35px]">
+            <p className="text-[40px] font-medium t-[35px] uppercase pt-[35px] num">
               +91 9895911863
             </p>
             <a

@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+  .contact-section {
+    flex-direction: column;
+    padding: 15px;
+    gap: 100px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+  }
+
+  .mail {
+    font-size: 25px;
+  }
+
+  .num {
+    font-size: 30px;
+  }
+
+  .reach-out {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .contact-section {
+    padding: 15px;
+  }
+}
