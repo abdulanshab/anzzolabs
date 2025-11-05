@@ -39,7 +39,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-
 .container {
   max-width: 1200px;
   margin: auto;
@@ -51,6 +50,9 @@ h1 {
 
 p,
 a,
+label,
+input,
+button,
 span {
   font-family: "Eudoxus-sans";
 }
@@ -85,8 +87,6 @@ span {
   display: inline-flex;
   animation: marquee-right 50s linear infinite;
 }
-
-
 
 /* Scrollbar width */
 ::-webkit-scrollbar {

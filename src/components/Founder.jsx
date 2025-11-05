@@ -65,7 +65,7 @@ const Founder = () => {
             ref={(el) => (textRefs.current[0] = el)}
             className="text-white font-medium"
           >
-            [about founder]
+            [about me]
           </p>
 
           <p
