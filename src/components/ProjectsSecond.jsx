@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { chocotonic, freestyle } from "../assets";
 import "./responsive/Projects.scss";
+import { cursorControls } from "../components/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,6 +59,7 @@ const ProjectsSecond = () => {
 
   // Hover enter/leave/follow (unchanged)
   const handleHoverEnter = (circleRef, e) => {
+    cursorControls.hide();
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -71,6 +73,7 @@ const ProjectsSecond = () => {
   };
 
   const handleHoverLeave = (circleRef) => {
+    cursorControls.show();
     gsap.to(circleRef.current, {
       scale: 0,
       autoAlpha: 0,
@@ -111,7 +114,7 @@ const ProjectsSecond = () => {
               className="absolute w-36 h-11 -translate-x-1/2 -translate-y-1/2 
                          rounded-full bg-[#3545D6] text-white font-medium text-[16px]
                          flex items-center justify-center pointer-events-auto z-20 gap-2 overflow-hidden"
-              style={{ scale: 0, opacity: 0 }}
+              style={{ scale: 0, opacity: 0, left: "0%", top: "0%" }}
             >
               view work
               <svg

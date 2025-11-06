@@ -4,34 +4,21 @@ import "./responsive/Navbar.scss";
 
 const Navbar = () => {
   return (
-    <div className="container py-5 w-full z-50 flex items-center justify-between sticky top-0 mobile">
+    <div className="container navbar-container py-5 w-full z-50 flex items-center justify-between sticky top-0 mix-nav mobile">
       <div className="flex items-center nav">
         <a href="/">
-          <h1 className="text-2xl">
+          <h1 className="logo text-2xl">
             ANZZOLABS<span>®</span>
           </h1>
         </a>
-        <p className="font-medium text-[14px] pl-88">Design & Dev Studio</p>
+        <p className="tagline">Design & Dev Studio</p>
       </div>
-      <div className="links flex gap-5 font-medium text-[14px] menu">
-        <Link
-          to="/contact"
-          className="relative overflow-hidden 
-                        before:content-[''] before:absolute before:bottom-0 before:right-0 
-                        before:w-0 before:h-[1.5px] before:bg-black 
-                        before:transition-all before:duration-300 
-                        hover:before:left-0 hover:before:w-full"
-        >
+
+      <div className="links flex gap-5 text-[14px] menu">
+        <Link to="/contact" className="nav-link">
           Contact
         </Link>
-        <Link
-          to="/works"
-          className="relative overflow-hidden 
-                        before:content-[''] before:absolute before:bottom-0 before:right-0 
-                        before:w-0 before:h-[1.5px] before:bg-black 
-                        before:transition-all before:duration-300 
-                        hover:before:left-0 hover:before:w-full"
-        >
+        <Link to="/works" className="nav-link">
           Works
         </Link>
       </div>

@@ -46,7 +46,7 @@ const Preloader = ({ onFinish }) => {
       { value: 0 },
       {
         value: 100,
-        duration: 5, // total duration
+        duration: 2.5, // total duration
         ease: "power1.inOut",
         onUpdate: function () {
           setProgress(Math.round(this.targets()[0].value));

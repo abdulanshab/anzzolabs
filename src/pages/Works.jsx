@@ -13,6 +13,7 @@ import {
   Img4,
   Img5,
 } from "../assets";
+import { cursorControls } from "../components/CustomCursor"; // ✅ Import here
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -158,6 +159,7 @@ const Works = () => {
 
   // ✅ Hover animation
   const handleHoverEnter = (circleRef, e) => {
+    cursorControls.hide();
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -171,6 +173,7 @@ const Works = () => {
   };
 
   const handleHoverLeave = (circleRef) => {
+    cursorControls.show();
     gsap.to(circleRef, {
       scale: 0,
       autoAlpha: 0,

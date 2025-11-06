@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AuraBliss, flickbite } from "../assets";
+import { cursorControls } from "../components/CustomCursor"; // ✅ Import here
 import "./responsive/Projects.scss";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +16,7 @@ const Projects = () => {
   const flickbiteArrowRef = useRef(null);
 
   useEffect(() => {
-    // Scroll-trigger animations
+    // ✅ Scroll-trigger animations
     const animateCard = (card) => {
       gsap.fromTo(
         card,
@@ -40,7 +41,7 @@ const Projects = () => {
       animateCard(card)
     );
 
-    // Continuous arrow animation using GSAP timeline
+    // ✅ Arrow animation
     const arrowAnimation = (arrow) => {
       gsap.to(arrow, {
         x: 8,
@@ -56,8 +57,10 @@ const Projects = () => {
     arrowAnimation(flickbiteArrowRef.current);
   }, []);
 
-  // Hover enter/leave/follow (unchanged)
+  // ✅ Hover interactions with cursor control
   const handleHoverEnter = (circleRef, e) => {
+    cursorControls.hide(); // Hide custom cursor
+
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -71,6 +74,8 @@ const Projects = () => {
   };
 
   const handleHoverLeave = (circleRef) => {
+    cursorControls.show(); // Show custom cursor again
+
     gsap.to(circleRef.current, {
       scale: 0,
       autoAlpha: 0,
@@ -93,9 +98,9 @@ const Projects = () => {
 
   return (
     <div className="container">
-      <div className="mt-5 ">
-        <div className=" flex flex-col md:flex-row gap-[15px] mb-project">
-          {/* Aurabliss */}
+      <div className="mt-5">
+        <div className="flex flex-col md:flex-row gap-[15px] mb-project">
+          {/* AURABLISS */}
           <div
             ref={aurablissRef}
             className="relative w-full md:w-[600px] h-[350px] overflow-hidden group card"
@@ -134,7 +139,7 @@ const Projects = () => {
             />
           </div>
 
-          {/* FlickBite */}
+          {/* FLICKBITE */}
           <div
             ref={flickbiteRef}
             className="relative w-full md:w-[600px] h-[350px] overflow-hidden group card"
@@ -150,7 +155,7 @@ const Projects = () => {
               className="absolute w-36 h-11 -translate-x-1/2 -translate-y-1/2 
                          rounded-full bg-[#3545D6] text-white font-medium text-[16px]
                          flex items-center justify-center pointer-events-auto z-20 gap-2 overflow-hidden"
-              style={{ scale: 0, opacity: 0 }}
+              style={{ scale: 0, opacity: 0, left: "0%", top: "0%" }}
             >
               view work
               <svg
