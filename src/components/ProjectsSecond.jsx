@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { AuraBliss, chocotonic, flickbite, freestyle } from "../assets";
+import { chocotonic, freestyle } from "../assets";
 import "./responsive/Projects.scss";
 
 gsap.registerPlugin(ScrollTrigger);

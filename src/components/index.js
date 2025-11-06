@@ -10,6 +10,7 @@ import Founder from "./Founder";
 import Footer from "./Footer";
 import Preloader from "./Preloader";
 import CustomCursor from "./CustomCursor";
+import ScrollTop from "./ScrollTop";
 
 export {
   Navbar,
@@ -24,4 +25,5 @@ export {
   Footer,
   Preloader,
   CustomCursor,
+  ScrollTop,
 };

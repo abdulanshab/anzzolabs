@@ -132,7 +132,7 @@ const WorkTrail = () => {
 
           <p
             ref={(el) => (textRefs.current[1] = el)}
-            className="font-bold text-[90px] leading-[1] text-center overflow-hidden work-heading"
+            className="font-medium text-[90px] leading-[1] text-center overflow-hidden work-heading"
           >
             HELPING BRANDS <br /> MOVE THE WORLD <br /> FORWARD
           </p>

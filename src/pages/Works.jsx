@@ -2,7 +2,17 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
-import { AuraBliss, flickbite, Img1, Img2, Img3, Img4, Img5 } from "../assets";
+import {
+  AuraBliss,
+  chocotonic,
+  flickbite,
+  freestyle,
+  Img1,
+  Img2,
+  Img3,
+  Img4,
+  Img5,
+} from "../assets";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +22,8 @@ const Works = () => {
   const projectRefs = useRef([]);
   const circleRefs = useRef([]);
   const arrowRefs = useRef([]);
-  const textRef = useRef(null); // 👈 for heading animation
+  const textRef = useRef(null); // heading
+  const text2Ref = useRef(null); // ending text
 
   // ✅ LENIS Smooth Scroll
   useEffect(() => {
@@ -33,7 +44,7 @@ const Works = () => {
     return () => lenis.destroy();
   }, []);
 
-  // ✅ Mouse trail effect
+  // ✅ Mouse trail
   useEffect(() => {
     gsap.set(imageRefs.current, { autoAlpha: 0 });
     const wrapper = wrapperRef.current;
@@ -69,9 +80,41 @@ const Works = () => {
     return () => wrapper.removeEventListener("mousemove", moveHandler);
   }, []);
 
-  // ✅ Scroll-triggered animations (projects + arrows + heading cutout)
+  // ✅ Cutout animation reusable function
+  const animateCutout = (element) => {
+    if (!element) return;
+    const lines = element.innerHTML
+      .split("<br>")
+      .map((line) => `<div class="cutout-line">${line}</div>`)
+      .join("");
+    element.innerHTML = lines;
+
+    gsap.set(element.querySelectorAll(".cutout-line"), {
+      y: 50,
+      clipPath: "inset(100% 0% 0% 0%)",
+    });
+
+    gsap.utils
+      .toArray(element.querySelectorAll(".cutout-line"))
+      .forEach((line, i) => {
+        gsap.to(line, {
+          y: 0,
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.5,
+          delay: i * 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: element,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      });
+  };
+
+  // ✅ Scroll-triggered animations
   useEffect(() => {
-    // Animate project cards
+    // Project cards
     projectRefs.current.forEach((card) => {
       if (!card) return;
       gsap.fromTo(
@@ -93,7 +136,7 @@ const Works = () => {
       );
     });
 
-    // Floating arrow motion
+    // Floating arrow animation
     arrowRefs.current.forEach((arrow) => {
       if (!arrow) return;
       gsap.to(arrow, {
@@ -106,34 +149,14 @@ const Works = () => {
       });
     });
 
-    // ✅ Heading cutout animation (like WorkTrail)
-    const heading = textRef.current;
-    if (heading) {
-      const lines = heading.innerHTML
-        .split("<br>")
-        .map((line) => `<div class="cutout-line">${line}</div>`)
-        .join("");
-      heading.innerHTML = lines;
+    // Heading cutout
+    animateCutout(textRef.current);
 
-      gsap.set(".cutout-line", { y: 50, clipPath: "inset(100% 0% 0% 0%)" });
-      gsap.utils.toArray(".cutout-line").forEach((line, i) => {
-        gsap.to(line, {
-          y: 0,
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 1.5,
-          delay: i * 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 80%",
-            toggleActions: "play",
-          },
-        });
-      });
-    }
+    // Bottom text cutout
+    animateCutout(text2Ref.current);
   }, []);
 
-  // ✅ Hover animations
+  // ✅ Hover animation
   const handleHoverEnter = (circleRef, e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -160,13 +183,7 @@ const Works = () => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
-    gsap.to(circleRef, {
-      x,
-      y,
-      duration: 0.6,
-      ease: "power3.out",
-    });
+    gsap.to(circleRef, { x, y, duration: 0.6, ease: "power3.out" });
   };
 
   const projects = [
@@ -186,15 +203,17 @@ const Works = () => {
     },
     {
       id: 3,
-      image: Img1,
-      link: "#",
-      title: "Project Three",
+      image: chocotonic,
+      link: "https://www.behance.net/gallery/119947985/Chocotonic",
+      title: "Chocotonic",
+      category: "Branding",
     },
     {
       id: 4,
-      image: Img2,
-      link: "#",
-      title: "Project Four",
+      image: freestyle,
+      link: "https://www.behance.net/gallery/185101787/Freestyle-Ecommerce-Landing-Page",
+      title: "Freestyle",
+      category: "Website",
     },
   ];
 
@@ -202,13 +221,11 @@ const Works = () => {
 
   return (
     <>
-      {/* Mouse Trail + Text Cutout Section */}
+      {/* Hero Section with cutout heading */}
       <div
+        id="hero"
         ref={wrapperRef}
-        className="py-[60px] 
-             sm:py-[80px] 
-             md:py-[100px] 
-             lg:py-[125px] relative"
+        className="py-[60px] sm:py-[80px] md:py-[100px] lg:py-[125px] relative"
       >
         {images.map((img, i) => (
           <img
@@ -225,20 +242,13 @@ const Works = () => {
           />
         ))}
 
-        {/* Cutout Animated Heading */}
         <p
           ref={textRef}
-          className="font-medium 
-             text-[36px] leading-[1.1] text-center uppercase overflow-hidden
-             sm:text-[48px] 
-             md:text-[64px] 
-             lg:text-[80px] 
-             xl:text-[90px]"
+          className="font-medium text-[36px] leading-[1.1] text-center uppercase overflow-hidden sm:text-[48px] md:text-[64px] lg:text-[80px] xl:text-[90px]"
         >
           Crafting brands <br /> that speak, move, <br /> and endure.
         </p>
 
-        {/* Inline style for cutout effect */}
         <style>{`
           .cutout-line {
             overflow: hidden;
@@ -247,9 +257,9 @@ const Works = () => {
         `}</style>
       </div>
 
-      {/* Project Cards */}
+      {/* Project Grid */}
       <div className="container">
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-project">
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-[30px] mb-[120px]">
           {projects.map((proj, index) => (
             <div
               key={proj.id}
@@ -261,20 +271,17 @@ const Works = () => {
               onMouseLeave={() => handleHoverLeave(circleRefs.current[index])}
               onMouseMove={(e) => handleHoverMove(circleRefs.current[index], e)}
             >
-              {/* Image Header */}
               <div className="flex justify-between py-2">
                 <p className="text-[16px] font-medium">{proj.title}</p>
                 <p className="text-[16px] font-medium">{proj.category}</p>
               </div>
 
-              {/* Project Image */}
               <img
                 src={proj.image}
                 alt={proj.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-95 pointer-events-none"
               />
 
-              {/* Hover Button Behind Cursor */}
               <a
                 ref={(el) => (circleRefs.current[index] = el)}
                 href={proj.link}
@@ -306,6 +313,14 @@ const Works = () => {
             </div>
           ))}
         </div>
+
+        {/* Bottom text with cutout animation */}
+        <p
+          ref={text2Ref}
+          className="font-medium text-[36px] leading-[1.1] text-center uppercase overflow-hidden sm:text-[48px] md:text-[64px] lg:text-[80px] xl:text-[90px] mb-[150px]"
+        >
+          That’s not all <br /> we’re still creating.
+        </p>
       </div>
     </>
   );
