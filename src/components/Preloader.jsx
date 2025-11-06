@@ -1,97 +1,116 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { Img1, Img2, Img3, Img4, Img5 } from "../assets"; // import all 5 images
+// Assuming Img1, Img2, etc., are correctly resolving paths
+import { Img1, Img2, Img3, Img4, Img5 } from "../assets";
 
 const Preloader = ({ onFinish }) => {
   const [progress, setProgress] = useState(0);
   const containerRef = useRef(null);
   const textRef = useRef(null);
+  // Ref for the progress number
+  const progressNumRef = useRef(null);
   const imageRefs = useRef([]);
-
   const images = [Img1, Img2, Img3, Img4, Img5];
 
-  // 1. New useEffect to manage body overflow
+  // Prevent scrolling while loading
   useEffect(() => {
-    // Add overflow: hidden to the body when the component mounts
     document.body.style.overflow = "hidden";
-
-    // Clean up: Remove overflow: hidden when the component unmounts (after onFinish is called)
     return () => {
       document.body.style.overflow = "";
     };
-  }, []); // Empty dependency array ensures it runs only on mount and unmount
+  }, []);
 
   useEffect(() => {
-    // Animate center text
+    // Guard: ensure critical refs exist
+    if (!textRef.current || !containerRef.current) return;
+
+    // Animate center text (Anzzolabs)
     gsap.fromTo(
       textRef.current,
       { y: "100%", opacity: 0 },
       { y: "0%", opacity: 1, duration: 0.8, ease: "power2.out" }
     );
 
-    // Animate images in sequence at bottom-right
+    // Animate images (Looping timeline)
     const imageTimeline = gsap.timeline({ repeat: -1 });
     images.forEach((_, i) => {
-      imageTimeline.to(imageRefs.current[i], { opacity: 1, duration: 0.2 });
-      imageTimeline.to(imageRefs.current[i], {
-        opacity: 1,
-        duration: 0.2,
-        delay: 0.2,
-      });
+      // Use a strict check for the individual image ref before adding to the timeline
+      if (imageRefs.current[i]) {
+        imageTimeline.to(imageRefs.current[i], { opacity: 1, duration: 0.2 });
+        imageTimeline.to(imageRefs.current[i], {
+          opacity: 1,
+          duration: 0.2,
+          delay: 0.2, // Hold duration
+        });
+      }
     });
 
-    // Progress animation
+    // Progress and exit animation timeline
     const progressTimeline = gsap.timeline();
     progressTimeline.to(
       { value: 0 },
       {
         value: 100,
-        duration: 2.5, // total duration
+        duration: 2.5,
         ease: "power1.inOut",
-        onUpdate: function () {
+        onUpdate() {
           setProgress(Math.round(this.targets()[0].value));
         },
         onComplete: () => {
-          // Stop the repeating image animation
+          // Stop image loop safely
           imageTimeline.kill();
 
-          // Fade out center text
-          gsap.to(textRef.current, {
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.out",
-          });
+          // 1. Animate text out
+          if (textRef.current)
+            gsap.to(textRef.current, {
+              opacity: 0,
+              duration: 0.5,
+              ease: "power1.out",
+            });
 
-          // Fade out images
-          gsap.to(imageRefs.current, {
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.out",
-            stagger: 0.1,
-          });
+          // 2. Animate images out (STRENGTHENED CHECK)
+          // Ensure the ref array exists AND has elements before animating
+          if (imageRefs.current && imageRefs.current.length > 0)
+            gsap.to(imageRefs.current.filter(Boolean), {
+              opacity: 0,
+              duration: 0.5,
+              ease: "power1.out",
+              stagger: 0.1,
+            });
 
-          // Fade out progress number
-          gsap.to(".progress-number", {
-            opacity: 0,
-            duration: 0.5,
-            ease: "power1.out",
-          });
+          // 3. Animate progress number out (Using ref, checking for null)
+          if (progressNumRef.current) {
+            gsap.to(progressNumRef.current, {
+              opacity: 0,
+              duration: 0.5,
+              ease: "power1.out",
+            });
+          }
 
-          // Slide up the container
-          gsap.to(containerRef.current, {
-            y: "-100%",
-            opacity: 1,
-            duration: 1,
-            ease: "power2.in",
-            delay: 0.2,
-            onComplete: () => {
-              if (onFinish) onFinish();
-            },
-          });
+          // 4. Animate container out (The final step)
+          if (containerRef.current)
+            gsap.to(containerRef.current, {
+              y: "-100%",
+              opacity: 1, // Note: You probably want opacity: 0 here if you want it to fade too
+              duration: 1,
+              ease: "power2.in",
+              delay: 0.2,
+              onComplete: () => {
+                // The callback that triggers component unmount
+                if (onFinish) onFinish();
+              },
+            });
         },
       }
     );
-  }, [onFinish]);
+
+    // Cleanup to kill timelines when component unmounts unexpectedly
+    return () => {
+      progressTimeline.kill();
+      imageTimeline.kill();
+    };
+    // Re-run effect only if these dependencies change
+  }, [onFinish, images.length]);
 
   return (
     <div
@@ -111,6 +130,7 @@ const Preloader = ({ onFinish }) => {
           {images.map((img, index) => (
             <img
               key={index}
+              // Set the ref for each image element
               ref={(el) => (imageRefs.current[index] = el)}
               src={img}
               alt={`preloader-${index}`}
@@ -118,7 +138,12 @@ const Preloader = ({ onFinish }) => {
             />
           ))}
         </div>
-        <div className="mt-2 text-[18px] font-medium progress-number">
+
+        {/* Attach the progress number ref */}
+        <div
+          ref={progressNumRef}
+          className="mt-2 text-[18px] font-medium progress-number"
+        >
           {progress}%
         </div>
       </div>
