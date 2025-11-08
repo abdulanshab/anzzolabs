@@ -2,11 +2,14 @@
 
 @font-face {
   font-family: "Eudoxus-sans";
-  src: url(assets/fonts/EudoxusSansGX.woff) format("woff");
+  src: url("/fonts/EudoxusSansGX.woff") format("woff");
+  font-display: swap;
 }
+
 @font-face {
   font-family: "Necosmic";
-  src: url(assets/fonts/Necosmic.otf) format("opentype");
+  src: url("/fonts/Necosmic.otf") format("opentype");
+  font-display: swap;
 }
 
 html {
