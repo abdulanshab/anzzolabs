@@ -1,0 +1,6 @@
+# robots.txt for Anzzolabs
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.anzzolabs.com/sitemap.xml
