@@ -1,5 +1,3 @@
-# robots.txt for Anzzolabs
-
 User-agent: *
 Allow: /
 

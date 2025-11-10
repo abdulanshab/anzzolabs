@@ -212,10 +212,10 @@ const Contact = () => {
             <div>
               <p className="text-[20px] font-medium uppercase">phone support</p>
               <p className="text-[40px] font-medium t-[35px] uppercase pt-[35px] num">
-                +91 9895911863
+                +91 8848863868
               </p>
               <a
-                href="tel:+919895911863"
+                href="tel:+918848863868"
                 className="text-[16px] font-bold uppercase flex items-center gap-2 text-[#3545D6] pt-[20px]"
               >
                 CALL US NOW
