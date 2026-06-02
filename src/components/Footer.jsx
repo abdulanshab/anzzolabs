@@ -102,7 +102,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="flex justify-between items-center w-full pt-5 font-medium text-[16px] footer-copywrite">
-          <p>Copywrite © Anzzolabs 2025</p>
+          <p>Copywrite © Anzzolabs {new Date().getFullYear()}</p>
           <p className="cursor-pointer" onClick={scrollToHero}>
             Back to top
           </p>
