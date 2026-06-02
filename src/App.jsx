@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Home, Contact, Works } from "./pages";
 import { CustomCursor, Footer, Navbar, ScrollTop } from "./components";
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
+      <SpeedInsights />
     </Router>
   );
 }
